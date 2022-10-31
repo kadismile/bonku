@@ -3,7 +3,7 @@ To run this app locally, do the following:
 
 Create a `.env` file with the following contents:
 ```
-mongoDB=mongodb://mongo:27017/athena  
+mongoDB=mongodb://mongo:27017/bonku  
 NODE_ENV=development
 ```
 
