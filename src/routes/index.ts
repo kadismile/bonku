@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/api/v1/access', function (req, res, next) {
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 module.exports = router;
