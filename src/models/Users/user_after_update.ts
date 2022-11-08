@@ -3,7 +3,7 @@ import { IUser } from './usertypes';
 import bcrypt from "bcryptjs";
 import User from './UsersModel';
 
-const UserAfterUpdate = async ( model: any, next: NextFunction) => {
+const UserAfterUpdate = async ( model: any, next: any) => {
 
   const oldDoc: any  = await User.findById(model._conditions._id);
   const newDoc: IUser = model._update
