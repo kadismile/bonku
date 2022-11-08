@@ -1,8 +1,10 @@
 // @ts-ignore
 import indexRouter from './index';
-//import account_routes from './account_routes';
+import tenant_routes from './tenant_routes';
+import auth_routes from './auth_routes';
 
 module.exports = [
   ['/', indexRouter],
-  //['/api/v1/accounts', account_routes],
+  ['/api/v1/tenants', tenant_routes],
+  ['/api/v1/users', auth_routes],
 ];

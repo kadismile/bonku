@@ -8,13 +8,26 @@ export interface IUser extends ITimeStampedDocument {
   userNumber: number,
   userType: string,
   fullName: string,
-  phoneNumber: [string],
+  phoneNumber: string,
   accountBalance: number,
-  address: { phoneNumber: string, countryCode: string },
-  businessAddress: { phoneNumber: string, countryCode: string },
+  address: IAddress,
   history: [object],
   isActive: boolean,
   isVerified: boolean,
   status: boolean,
   countryCode: string
+}
+
+export interface IAddress {
+  phoneNumber: string,
+  countryCode: string
+}// 0005399308 Access Diamond Edmun 
+
+export interface IUserInput {
+    fullName: string,
+    password: string,
+    phoneNumber: string,
+    userType: string,
+    email: string,
+    address: IAddress
 }

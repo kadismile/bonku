@@ -16,17 +16,12 @@ const schema = new Schema<ITenant>({
     ],
     required: [true, 'Please Add Email']
   },
-  fullName: {
+  businessName: {
     type: String,
     required: [true, 'Please Add Full Name']
   },
   phoneNumber: {
-    type : Array,
-    default : [],
-  },
-  countryCode: {
-    type: String,
-    required: [true, 'Please Add Country Code']
+    type : String
   },
   tenantNumber: {
     type: Number,
@@ -36,16 +31,13 @@ const schema = new Schema<ITenant>({
   user: {
     type: String,
     ref: 'User',
+    required: [true, "kindly provide a a userId"]
   },
   accountBalance: {
     type: Number,
     default: function() {
       return 0.0;
     }
-  },
-  address: {
-    type : Object,
-    required: [true, 'Please add an address']
   },
   history: {
     type: Array,
