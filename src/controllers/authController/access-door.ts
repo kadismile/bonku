@@ -11,7 +11,7 @@ export const LoginSchema = Joi.object().keys({
 });
 
 const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
-  let { userId, tenantId } = req.body;
+  let { userId, tenantId } = req.query;
   if (!userId) {
     res.status(400).send({
       status: "failed",
