@@ -1,6 +1,7 @@
 import { ITimeStampedDocument } from '../plugins/timestamp-plugin';
 
 export interface IUser extends ITimeStampedDocument {
+  _id: string;
   name: string;
   email: string;
   password: string;
@@ -29,5 +30,6 @@ export interface IUserInput {
     phoneNumber: string,
     userType: string,
     email: string,
+    tenantId?: string,
     address: IAddress
 }

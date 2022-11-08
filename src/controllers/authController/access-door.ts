@@ -1,9 +1,10 @@
+import { IUser } from './../../models/Users/usertypes';
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
 import ApplicationError from '../../errors/application-error';
 import User from '../../models/Users/UsersModel';
-import Tenant from '../../models/Tenants/TenantsModel';
+
 
 export const LoginSchema = Joi.object().keys({
   userId: Joi.string(),
@@ -21,9 +22,9 @@ const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
 
   if (userId) {
     try {
-      const user:any = await User.findById(userId);
-      const tenant:any = await Tenant.findById(tenantId) || 'wA54jYWqLWfCI4MO8jar462Q8';
-      if (user && tenant) {
+      const user: IUser | null = await User.findById(userId);
+      //const tenant: ITenant | null = await Tenant.findById(tenantId) ;
+      if (user) {
         res.status(200).send(true);
       } else {
         res.status(404).send(false);
