@@ -1,13 +1,11 @@
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
-import User from '../../models/Users/UsersModel';
-import prepareValidPhoneNumber from '../../helpers/prepareValidPhoneNumber';
-//import kue from "kue";
-//import Mailer from "../../helpers/mailer";
-//import {authenticateUser} from "../../helpers/authenticateUser";
+import { createUserHelper } from '../../helpers/createUser';
+import Tenant from '../../models/Tenants/TenantsModel';
 
 export const addUserSchema = Joi.object().keys({
+  tenant: Joi.string().required(),
   fullName: Joi.string().required(),
   password: Joi.string().min(6).max(50).required(),
   phoneNumber: Joi.string().required(),
@@ -27,25 +25,18 @@ export const addUserSchema = Joi.object().keys({
 
 const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
   let doc = req.body
+  const tenant = await Tenant.findById(doc.tenant)
+  if (tenant) {
     try {
-      doc.phoneNumber = [prepareValidPhoneNumber(doc)];
-      const user = new User(req.body);
-      await user.save();
-      /* const queues = kue.createQueue();
-      const type = "WelcomeEmailJob"
-      queues
-        .create(type, {
-          email: user.email,
-          fullName: user.fullName,
-          subject: 'Welcome To Next-Handle',
-        })
-        .priority("high")
-        .save();
-      let loggedInUser
-      if (user) {
-        loggedInUser = await authenticateUser(doc)
+      const params = {
+        fullName: doc.fullName,
+        password: doc.password,
+        phoneNumber: doc.phoneNumber,
+        userType: doc.userType,
+        email: doc.email,
+        address: {...doc.address, phoneNumber: doc.phoneNumber}
       }
-      await Mailer.sendMail(type, 'welcome-email') */
+      const user = await createUserHelper(params)
       res.send({
         status: "success",
         data: user
@@ -56,6 +47,13 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
         message: e.message
       });
     }
+  } else {
+    res.status(404).json({
+      status: "failed",
+      message: 'Tenant not found'
+    });
+  }
+  
 };
 
 export default requestMiddleware(create_user, { validation: { body: addUserSchema } });

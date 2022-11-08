@@ -4,11 +4,8 @@ import Joi from '@hapi/joi';
 import logger from '../../logger';
 import requestMiddleware from '../../middlewares/request-middleware';
 import { createUserHelper } from '../../helpers/createUser';
-//import prepareValidPhoneNumber from '../../helpers/prepareValidPhoneNumber';
-//import kue from "kue";
 import Tenant from '../../models/Tenants/TenantsModel';
-//import Mailer from "../../utils/mailer";
-//import { authenticateUser } from "../../utils/authenticateUser";
+
 
 export const addTenantSchema = Joi.object().keys({
   email: Joi.string().required().email({ tlds: { allow: false } }),
