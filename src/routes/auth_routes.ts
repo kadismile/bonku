@@ -5,5 +5,7 @@ const auth_routes = Router();
 
 // Auth routes
 auth_routes.post('/create', authController.createUsers);
+auth_routes.post('/login', authController.login);
+auth_routes.get('/access', authController.access);
 
 export default auth_routes;

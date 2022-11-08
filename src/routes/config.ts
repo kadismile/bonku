@@ -7,4 +7,5 @@ module.exports = [
   ['/', indexRouter],
   ['/api/v1/tenants', tenant_routes],
   ['/api/v1/users', auth_routes],
+  ['/api/v1/auth', auth_routes],
 ];
