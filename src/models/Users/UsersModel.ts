@@ -23,8 +23,7 @@ const schema = new Schema<IUser>({
     required: [true, 'Please Add Full Name']
   },
   phoneNumber: {
-    type : Array,
-    default : [],
+    type : String
   },
   userNumber: {
     type: Number,
@@ -33,8 +32,9 @@ const schema = new Schema<IUser>({
   },
   userType: {
     type: String,
-    required: [true, "kindly provide a userType"]
-  },
+    enum : ['customer','tenantAdmin'],
+    default: 'user'
+},
   tenant: {
     type: String,
     ref: 'Tenant',

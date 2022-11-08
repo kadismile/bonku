@@ -1,17 +1,23 @@
 import { ITimeStampedDocument } from '../plugins/timestamp-plugin';
+import { IAddress } from '../Users/usertypes';
 
 export interface ITenant extends ITimeStampedDocument {
   name: string;
   email: string;
   tenantNumber: number,
-  fullName: string,
-  phoneNumber: [string],
+  businessName: string,
+  phoneNumber: string,
   accountBalance: number,
-  address: string,
-  businessAddress: string,
+  password: string,
+  businessAddress: IAddress,
   history: [object],
   isActive: boolean,
   isVerified: boolean,
   status: boolean,
   countryCode: string
+  userType: string
 }
+
+/* export interface ITenantInputs extends ITenant {
+  phoneNumber: string
+} */
