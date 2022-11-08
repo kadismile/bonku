@@ -5,6 +5,7 @@ import logger from '../../logger';
 import requestMiddleware from '../../middlewares/request-middleware';
 import { createUserHelper } from '../../helpers/createUser';
 import Tenant from '../../models/Tenants/TenantsModel';
+import User from '../../models/Users/UsersModel';
 
 
 export const addTenantSchema = Joi.object().keys({
@@ -49,12 +50,17 @@ const create_tenant: RequestHandler = async (req: Request<{}, {}>, res) => {
       req.body.user = newUser._id
       const tenant = new Tenant(req.body);
       await tenant.save();
+      //update the user to have a tenantId
+      const user = await User.findByIdAndUpdate(newUser._id, { tenant: tenant._id }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+      });
       res.status(201).json({
         status: "success",
         data: {
-          //token,
           tenant: tenant.toJSON(),
-          user: newUser
+          user
         }
       });
     }

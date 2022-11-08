@@ -8,7 +8,7 @@ const TenantBeforeSave = async (doc: ITenant ) => {
 }
 
 const getNextSequenceValue = async () => {
-  let tenant: any = await Tenant.findOne({}, {}, {sort: { createdAt : -1 }});
+  let tenant: ITenant | null = await Tenant.findOne({}, {}, {sort: { createdAt : -1 }});
   if (!tenant) {
     return 1000;
   } else {

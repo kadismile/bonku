@@ -1,8 +1,13 @@
+import { IUser } from './../../models/Users/usertypes';
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
 import ApplicationError from '../../errors/application-error';
-import { findUserByEmailOrPhone } from '../../helpers/userHelper';
+import { 
+  findUserByEmailOrPhone, 
+  matchPassword, 
+  getSignedJwtToken 
+} from '../../helpers/userHelper';
 
 export const LoginSchema = Joi.object().keys({
   password: Joi.string().required(),
@@ -12,7 +17,7 @@ export const LoginSchema = Joi.object().keys({
 });
 
 const login: RequestHandler = async (req: Request<{}, {}>, res) => {
-  let { email, phoneNumber, password, isAdmin } = req.body;
+  let { email, phoneNumber, password } = req.body;
   if (!email && !phoneNumber) {
     res.status(400).json({
       status: "failed",
@@ -22,16 +27,15 @@ const login: RequestHandler = async (req: Request<{}, {}>, res) => {
 
   if (phoneNumber || email) {
     try {
-      const user:any = await findUserByEmailOrPhone(phoneNumber, email);
-      const isMatch = await user.matchPassword(password);
+      const user:IUser = await findUserByEmailOrPhone(phoneNumber, email);
+      const isMatch = await matchPassword(password, user.password);
       if (!isMatch) {
         res.status(401).json({
           status: "failed",
           data: "this user is not currently registered"
         });
       } else {
-        const token = user.getSignedJwtToken();
-        delete user.password;
+        const token = getSignedJwtToken(user);
         res.status(200).json({
           status: "success",
           token,

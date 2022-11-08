@@ -10,7 +10,8 @@ export const createUserHelper = async (params: IUserInput) => {
     phoneNumber: params.phoneNumber, 
     userType: params.userType,
     email: params.email,
-    address: params.address
+    address: params.address,
+    tenant: params.tenantId
   };
 
   const phoneNumber = prepareValidPhoneNumber(params.address);

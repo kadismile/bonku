@@ -1,3 +1,4 @@
+import { ITenant } from './../../models/Tenants/tenantTypes';
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
@@ -25,7 +26,7 @@ export const addUserSchema = Joi.object().keys({
 
 const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
   let doc = req.body
-  const tenant = await Tenant.findById(doc.tenant)
+  const tenant: ITenant | null = await Tenant.findById(doc.tenant)
   if (tenant) {
     try {
       const params = {
@@ -34,6 +35,7 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
         phoneNumber: doc.phoneNumber,
         userType: doc.userType,
         email: doc.email,
+        tenantId: tenant._id,
         address: {...doc.address, phoneNumber: doc.phoneNumber}
       }
       const user = await createUserHelper(params)

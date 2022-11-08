@@ -2,7 +2,6 @@ import { Model, Schema, model } from 'mongoose';
 import TimeStampPlugin from '../plugins/timestamp-plugin';
 import  UserAfterUpdate   from './user_after_update'
 import  UserBeforeSave   from './user_before_save'
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { IUser } from './usertypes';
 
@@ -123,21 +122,10 @@ schema.pre('findOneAndUpdate', async function(this, next) {
   await UserAfterUpdate(this, next)
 });
 
-
 schema.pre("save", async function(this, next) {
   await UserBeforeSave(this)
 });
 
-schema.methods.matchPassword = async function(enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-schema.methods.getSignedJwtToken = function(expires) {
-  const JWT_SECRET = process.env.JWT_SECRET || ''
-  return jwt.sign({ _id: this._id}, JWT_SECRET, {
-    expiresIn: expires ? expires : process.env.JWT_EXPIRE
-  });
-};
 
 const User: IUserModel = model<IUser, IUserModel>('User', schema);
 
