@@ -25,9 +25,9 @@ const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
       const user: IUser | null = await User.findById(userId);
       //const tenant: ITenant | null = await Tenant.findById(tenantId) ;
       if (user) {
-        res.status(200).send(true);
+        res.status(200).send('SUCCESSFUL');
       } else {
-        res.status(404).send(false);
+        res.status(404).send('UNSUCCESSFUL');
       }
     } catch (e: any) {
       throw new ApplicationError(e.message, 500)
