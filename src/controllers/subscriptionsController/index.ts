@@ -1,5 +1,7 @@
 import manageSubscriptions from './manage-subscriptions';
+import get_subscriptions from './get-subscriptions';
 
 export {
-  manageSubscriptions
+  manageSubscriptions,
+  get_subscriptions
 };
