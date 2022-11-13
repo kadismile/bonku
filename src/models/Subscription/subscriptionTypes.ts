@@ -6,4 +6,5 @@ export interface ISubscription extends ITimeStampedDocument {
   isActive: boolean;
   action: string;
   amount: string;
+  userId: string;
 }

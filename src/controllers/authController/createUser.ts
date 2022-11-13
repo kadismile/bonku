@@ -1,15 +1,19 @@
+import { ISubscription } from './../../models/Subscription/subscriptionTypes';
 import { ITenant } from './../../models/Tenants/tenantTypes';
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
 import { createUserHelper } from '../../helpers/createUser';
 import Tenant from '../../models/Tenants/TenantsModel';
+import Subscription from '../../models/Subscription/SubscriptionModel';
+import UserSubscription from '../../models/Subscription/UserSubscriptionModel';
 
 export const addUserSchema = Joi.object().keys({
   tenant: Joi.string().required(),
   fullName: Joi.string().required(),
   password: Joi.string().min(6).max(50).required(),
   phoneNumber: Joi.string().required(),
+  subscriptionId: Joi.string().required(),
   userType: Joi.string().valid(...['customer','tenantAdmin']).required(),
   email: Joi.string().required().email({ tlds: { allow: false } }),
   address: Joi.object({
@@ -39,9 +43,23 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
         address: {...doc.address, phoneNumber: doc.phoneNumber}
       }
       const user = await createUserHelper(params)
+      if (user && user.userType === 'customer') {
+        //attach a subscription 
+        const subscription = await Subscription.findById(doc.subscriptionId)
+        if (subscription) {
+          const userSubscription : ISubscription = new UserSubscription({
+            name: subscription.name,
+            userId: user._id,
+            amount: subscription.amount,
+            expiry: subscription.expiry,
+            isActive: subscription.isActive,
+          });
+          await userSubscription.save();
+        }
+      }
       res.send({
         status: "success",
-        data: user
+        data: {user}
       });
     } catch (e: any) {
       res.status(400).json({

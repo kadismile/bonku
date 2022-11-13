@@ -118,7 +118,6 @@ export const advancedResults = async (req: any, model: any, populate: any) => {
 
     let advancedResults = {
       count: results?.length,
-      documentCount: total,
       pagination,
       data: results,
     };
