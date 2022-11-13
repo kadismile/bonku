@@ -35,7 +35,7 @@ const manage_subscription: RequestHandler = async (req: Request<{}, {}>, res) =>
       const foundSub = await Subscription.findById(id)
       if (foundSub) {
         if (action === 'delete') {
-          const subscription = await Subscription.findByIdAndUpdate( id, { isActive: false });
+          await Subscription.findByIdAndUpdate( id, { isActive: false });
           res.status(200).json({
             status: "success",
             message: 'subscription successfully deleted',
