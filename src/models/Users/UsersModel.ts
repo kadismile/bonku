@@ -2,7 +2,6 @@ import { Model, Schema, model } from 'mongoose';
 import TimeStampPlugin from '../plugins/timestamp-plugin';
 import  UserAfterUpdate   from './user_after_update'
 import  UserBeforeSave   from './user_before_save'
-import jwt from "jsonwebtoken";
 import { IUser } from './usertypes';
 
 interface IUserModel extends Model<IUser> { }
