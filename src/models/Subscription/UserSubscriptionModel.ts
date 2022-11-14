@@ -34,6 +34,14 @@ const schema = new Schema<ISubscription>({
 // Add timestamp plugin for createdAt and updatedAt in miliseconds from epoch
 schema.plugin(TimeStampPlugin);
 
+schema.pre('findOne', async function() {
+  this.where({ isActive: true })
+});
+
+schema.pre('find', async function() {
+  this.where({ isActive: true })
+});
+
 const UserSubscription: IUserSubscriptionModel = model<ISubscription, IUserSubscriptionModel>('UserSubscription', schema);
 
 export default UserSubscription;
