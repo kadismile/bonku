@@ -4,6 +4,9 @@ export interface IUser extends ITimeStampedDocument {
   _id: string;
   name: string;
   email: string;
+  age?: string;
+  sex?: string;
+  weight?: string;
   password: string;
   tenant: string,
   userNumber: number,
@@ -22,14 +25,18 @@ export interface IUser extends ITimeStampedDocument {
 export interface IAddress {
   phoneNumber: string,
   countryCode: string
-}// 0005399308 Access Diamond Edmun 
+}
 
 export interface IUserInput {
-    fullName: string,
-    password: string,
-    phoneNumber: string,
-    userType: string,
-    email: string,
-    tenantId?: string,
-    address: IAddress
+  _id? : string
+  fullName: string,
+  password: string,
+  phoneNumber: string,
+  userType: string,
+  email: string,
+  tenantId?: string,
+  address: IAddress,
+  age?: string;
+  sex?: string;
+  weight?: string;
 }

@@ -3,7 +3,7 @@ import { ITenant } from './../../models/Tenants/tenantTypes';
 import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
-import { createUserHelper } from '../../helpers/createUser';
+import { createUserHelper } from '../../helpers/createEntity';
 import Tenant from '../../models/Tenants/TenantsModel';
 import Subscription from '../../models/Subscription/SubscriptionModel';
 import UserSubscription from '../../models/Subscription/UserSubscriptionModel';
@@ -12,6 +12,9 @@ import { sendWhatsappMessage } from '../../integrations/twilio'
 export const addUserSchema = Joi.object().keys({
   tenant: Joi.string().required(),
   fullName: Joi.string().required(),
+  age: Joi.string().required(),
+  sex: Joi.string().required(),
+  weight: Joi.string().required(),
   password: Joi.string().min(6).max(50).required(),
   phoneNumber: Joi.string().required(),
   subscriptionId: Joi.string().required(),
@@ -36,6 +39,9 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
     try {
       const params = {
         fullName: doc.fullName,
+        age: doc.age,
+        sex: doc.sex,
+        weight: doc.weight,
         password: doc.password,
         phoneNumber: doc.phoneNumber,
         userType: doc.userType,

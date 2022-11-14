@@ -28,20 +28,18 @@ const user_history: RequestHandler = async (req: Request<{}, {}>, res) => {
       //const tenant: ITenant | null = await Tenant.findById(tenantId) ;
       if (user) {
         const userHistory = await UserHistory.find({ userId})
-        if (userHistory.length) {
-          let data = userHistory.map((uh) => {
-            return {
-              name: uh.fullName,
-              phoneNumber: uh.phoneNumber,
-              loggedInAt: moment(uh.createdAt).format('MMMM D, YYYY, h:mma') 
-            }
-          })
-          res.status(200).json({
-            status: "success",
-            attempts: data.length,
-            data
-          });
-        }
+        let data = userHistory.map((uh) => {
+          return {
+            name: uh.fullName,
+            phoneNumber: uh.phoneNumber,
+            loggedInAt: moment(uh.createdAt).format('MMMM D, YYYY, h:mma') 
+          }
+        })
+        res.status(200).json({
+          status: "success",
+          attempts: data.length,
+          data
+        });
       } else {
         res.status(404).send(`User not found with Id ${userId}`);
       }
