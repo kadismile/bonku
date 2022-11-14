@@ -7,6 +7,7 @@ import { createUserHelper } from '../../helpers/createUser';
 import Tenant from '../../models/Tenants/TenantsModel';
 import Subscription from '../../models/Subscription/SubscriptionModel';
 import UserSubscription from '../../models/Subscription/UserSubscriptionModel';
+import { sendWhatsappMessage } from '../../integrations/twilio'
 
 export const addUserSchema = Joi.object().keys({
   tenant: Joi.string().required(),
@@ -56,6 +57,8 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
           });
           await userSubscription.save();
         }
+        //send Welcome whatsapp message to customer
+        sendWhatsappMessage(tenant, user)
       }
       res.send({
         status: "success",

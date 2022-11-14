@@ -20,6 +20,10 @@ const schema = new Schema<ITenant>({
     type: String,
     required: [true, 'Please Add Full Name']
   },
+  businessAddress: {
+    type : Object,
+    required: [true, 'Please add a business address']
+  },
   phoneNumber: {
     type : String
   },
