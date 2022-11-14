@@ -21,7 +21,20 @@ const schema = new Schema<IUser>({
     required: [true, 'Please Add Full Name']
   },
   phoneNumber: {
-    type : String
+    type : String,
+    required: [true, 'Please Add Phone Number']
+  },
+  age: {
+    type: String,
+    required: [true, 'Please Add Your Age']
+  },
+  sex: {
+    type: String,
+    required: [true, 'Please Add Gender']
+  },
+  weight: {
+    type: String,
+    required: [true, 'Please Add Your weight in Kg']
   },
   userNumber: {
     type: Number,

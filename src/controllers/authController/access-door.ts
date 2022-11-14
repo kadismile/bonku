@@ -5,6 +5,7 @@ import requestMiddleware from '../../middlewares/request-middleware';
 import ApplicationError from '../../errors/application-error';
 import User from '../../models/Users/UsersModel';
 import UserHistory from '../../models/Users/UserHistoryModel';
+import { createUserHistory } from '../../helpers/createEntity'
 
 
 export const LoginSchema = Joi.object().keys({
@@ -27,14 +28,7 @@ const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
       //const tenant: ITenant | null = await Tenant.findById(tenantId) ;
       if (user) {
         //update History for User
-        const userHistory = new UserHistory({
-          userId: user._id,
-          tenant: tenantId,
-          fullName: user.fullName,
-          phoneNumber: user.phoneNumber,
-          status: 'SUCCESSFUL',
-        });
-        await userHistory.save();
+        await createUserHistory(user)
         res.status(200).send('SUCCESSFUL');
       } else {
         res.status(404).send('UNSUCCESSFUL');

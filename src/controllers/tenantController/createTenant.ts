@@ -3,7 +3,7 @@ import { Request, RequestHandler, NextFunction } from 'express';
 import Joi from '@hapi/joi';
 import logger from '../../logger';
 import requestMiddleware from '../../middlewares/request-middleware';
-import { createUserHelper } from '../../helpers/createUser';
+import { createUserHelper } from '../../helpers/createEntity';
 import Tenant from '../../models/Tenants/TenantsModel';
 import User from '../../models/Users/UsersModel';
 
