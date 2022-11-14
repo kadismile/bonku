@@ -4,6 +4,7 @@ import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
 import ApplicationError from '../../errors/application-error';
 import User from '../../models/Users/UsersModel';
+import UserHistory from '../../models/Users/UserHistoryModel';
 
 
 export const LoginSchema = Joi.object().keys({
@@ -25,6 +26,15 @@ const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
       const user: IUser | null = await User.findById(userId);
       //const tenant: ITenant | null = await Tenant.findById(tenantId) ;
       if (user) {
+        //update History for User
+        const userHistory = new UserHistory({
+          userId: user._id,
+          tenant: tenantId,
+          fullName: user.fullName,
+          phoneNumber: user.phoneNumber,
+          status: 'SUCCESSFUL',
+        });
+        await userHistory.save();
         res.status(200).send('SUCCESSFUL');
       } else {
         res.status(404).send('UNSUCCESSFUL');
