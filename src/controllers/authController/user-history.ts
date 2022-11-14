@@ -33,7 +33,7 @@ const user_history: RequestHandler = async (req: Request<{}, {}>, res) => {
             return {
               name: uh.fullName,
               phoneNumber: uh.phoneNumber,
-              loggedInAt: moment(uh.createdAt).format('MMMM d, YYYY, h:mma') 
+              loggedInAt: moment(uh.createdAt).format('MMMM D, YYYY, h:mma') 
             }
           })
           res.status(200).json({
