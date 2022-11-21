@@ -1,5 +1,5 @@
 import { ITenant } from './../../models/Tenants/tenantTypes';
-import { Request, RequestHandler, NextFunction } from 'express';
+import { Request, RequestHandler } from 'express';
 import Joi from '@hapi/joi';
 import logger from '../../logger';
 import requestMiddleware from '../../middlewares/request-middleware';

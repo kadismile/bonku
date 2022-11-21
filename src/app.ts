@@ -17,7 +17,6 @@ const app = express();
 app.use(helmet())
 app.use(
   cors({
-    origin: (origin: any, cb: (arg0: null, arg1: boolean) => any) => cb(null, true),
     credentials: true,
     preflightContinue: true,
     exposedHeaders: [
@@ -94,6 +93,7 @@ app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction)
   }
   return res.status(err.status || 500).json({
     error: err.message,
+    req: req
   });
 });
 

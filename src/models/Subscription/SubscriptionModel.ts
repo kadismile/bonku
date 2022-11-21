@@ -49,7 +49,7 @@ schema.pre('findOneAndUpdate', async function(this, next) {
   await SubscriptionAfterUpdate(this, next)
 });
 
-schema.pre("save", async function(this, next) {
+schema.pre("save", async function(this, _next) {
   await SubscriptionBeforeSave(this)
 });
 

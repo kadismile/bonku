@@ -1,4 +1,4 @@
-import { Request, RequestHandler, NextFunction } from 'express';
+import { Request, RequestHandler } from 'express';
 import { ISubscription } from './../../models/Subscription/subscriptionTypes';
 import Joi from '@hapi/joi';
 import logger from '../../logger';

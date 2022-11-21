@@ -30,6 +30,7 @@ const schema = new Schema<IUser>({
   },
   sex: {
     type: String,
+    enum : ['male','female'],
     required: [true, 'Please Add Gender']
   },
   weight: {
@@ -134,7 +135,7 @@ schema.pre('findOneAndUpdate', async function(this, next) {
   await UserAfterUpdate(this, next)
 });
 
-schema.pre("save", async function(this, next) {
+schema.pre("save", async function(this, _next) {
   await UserBeforeSave(this)
 });
 

@@ -84,7 +84,7 @@ schema.pre('findOneAndUpdate', async function(this, next) {
   await TenantAfterUpdate(this, next)
 });
 
-schema.pre("save", async function(this, next) {
+schema.pre("save", async function(this, _next) {
   await TenantBeforeSave(this)
 });
 

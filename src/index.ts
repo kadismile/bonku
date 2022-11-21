@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 80;
 let debugCallback: any = null;
 if (process.env.NODE_ENV === 'development') {
   debugCallback = (collectionName: string, method: string, query: string, doc: string): void => {
-    const message = `${collectionName}.${method}(${util.inspect(query, { colors: true, depth: null })})`;
+    const message = `${doc}.${collectionName}.${method}(${util.inspect(query, { colors: true, depth: null })})`;
     logger.log({
       level: 'verbose',
       message,
@@ -30,14 +30,14 @@ if (process.env.NODE_ENV === 'development') {
 const safeMongooseConnection = new SafeMongooseConnection({
   mongoUrl: process.env.MONGO_URL || '',
   debugCallback,
-  onStartConnection: (mongoUrl) => logger.info(`Connecting to MongoDB at ${process.env.NODE_ENV} environment`),
+  onStartConnection: (mongoUrl) => logger.info(`Connecting to MongoDB at ${process.env.NODE_ENV}, ${mongoUrl} environment`),
   onConnectionError: (error, mongoUrl) =>
     logger.log({
       level: 'error',
-      message: `Could not connect to MongoDB with the provided credentials`,
+      message: `Could not connect to MongoDB with the provided credentials ${mongoUrl}`,
       error,
     }),
-  onConnectionRetry: (mongoUrl) => logger.info(`Retrying to MongoDB at ${process.env.NODE_ENV} environment`),
+  onConnectionRetry: (mongoUrl) => logger.info(`Retrying to MongoDB at ${process.env.NODE_ENV} ${mongoUrl} environment`),
 });
 
 const serve = () =>
@@ -50,7 +50,7 @@ if (process.env.MONGO_URL == null) {
   process.exit(1);
 } else {
   safeMongooseConnection.connect((mongoUrl: string) => {
-    logger.info(`Connected to MongoDB at ${process.env.NODE_ENV} environment`);
+    logger.info(`Connected to MongoDB at ${process.env.NODE_ENV} environment ${mongoUrl}`);
     serve();
   });
 }

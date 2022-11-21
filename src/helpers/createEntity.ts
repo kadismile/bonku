@@ -7,6 +7,9 @@ import UserHistory from '../models/Users/UserHistoryModel';
 export const createUserHelper = async (params: IUserInput) => {
   const body = {
     fullName: params.fullName,
+    age: params.age,
+    weight: params.weight,
+    sex: params.sex,
     password: params.password,
     phoneNumber: params.phoneNumber, 
     userType: params.userType,

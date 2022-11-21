@@ -1,34 +1,37 @@
 {
   "compilerOptions": {
-    "target": "es2018" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
-    "sourceMap": true /* Generates corresponding '.map' file. */,
-    "outDir": "dist" /* Redirect output structure to the directory. */,
-    "removeComments": true /* Do not emit comments to output. */,
-    "strict": true /* Enable all strict type-checking options. */,
-    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
-    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
-    "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
-    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
-    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
-    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
-  "module": "commonjs",
-  "pretty": true,
-  "preserveConstEnums": true,
-  "lib": ["es6"],
-  "allowJs": true,
-  "rootDir": "./",  
-  "resolveJsonModule": true,
-    /* Advanced Options */
-    "skipLibCheck": true /* Skip type checking of declaration files. */,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
-    "paths": {
-      "@config/*": ["src/config/*"],
-      "@docs/*": ["src/docs/*"],
-      "@scripts/*": ["src/scripts/*"],
-      "@services/*": ["src/services/*"],
-      "@utilities/*": ["src/utilities/*"],
-      "@middleware/*": ["src/middleware/*"]
-    }
-  }
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["ES2020"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": false,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": false,
+    "target": "ES2019",
+    "outDir": "dist",
+    "module": "CommonJS",
+    "strict": true,
+
+    "types": ["jest", "node"],
+
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "incremental": true,
+    "watch": true
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    ".serverless/**/*",
+    ".webpack/**/*",
+    "_warmup/**/*",
+    ".vscode/**/*",
+    "*.config.js"
+  ]
 }
