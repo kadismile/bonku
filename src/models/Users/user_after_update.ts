@@ -1,4 +1,3 @@
-import { NextFunction } from 'express';
 import { IUser } from './usertypes';
 import bcrypt from "bcryptjs";
 import User from './UsersModel';

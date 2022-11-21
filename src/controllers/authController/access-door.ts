@@ -4,7 +4,6 @@ import Joi from '@hapi/joi';
 import requestMiddleware from '../../middlewares/request-middleware';
 import ApplicationError from '../../errors/application-error';
 import User from '../../models/Users/UsersModel';
-import UserHistory from '../../models/Users/UserHistoryModel';
 import { createUserHistory } from '../../helpers/createEntity'
 
 
@@ -14,7 +13,7 @@ export const LoginSchema = Joi.object().keys({
 });
 
 const access_door: RequestHandler = async (req: Request<{}, {}>, res) => {
-  let { userId, tenantId } = req.query;
+  let { userId, /* tenantId */ } = req.query;
   if (!userId) {
     res.status(400).send({
       status: "failed",

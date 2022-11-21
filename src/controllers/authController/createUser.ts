@@ -13,7 +13,7 @@ export const addUserSchema = Joi.object().keys({
   tenant: Joi.string().required(),
   fullName: Joi.string().required(),
   age: Joi.string().required(),
-  sex: Joi.string().required(),
+  sex: Joi.string().valid(...['male','female']).required(),
   weight: Joi.string().required(),
   password: Joi.string().min(6).max(50).required(),
   phoneNumber: Joi.string().required(),

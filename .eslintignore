@@ -1,0 +1,11 @@
+.gitignore
+.serverless
+node_modules
+.vscode
+*.config.js
+.webpack
+_warmup
+.eslintrc.js
+@types/.eslintrc.js
+.prettierrc.js
+stacks-map.js
