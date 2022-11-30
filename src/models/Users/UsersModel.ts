@@ -65,6 +65,10 @@ const schema = new Schema<IUser>({
     type: String,
     select: false, //dont show the password
   },
+  fingerPrintId: {
+    type: String,
+    optional: true,
+  },
   resetPasswordToken: {
     type: String,
     optional: true,

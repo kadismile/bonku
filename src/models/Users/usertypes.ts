@@ -8,6 +8,7 @@ export interface IUser extends ITimeStampedDocument {
   sex?: string;
   weight?: string;
   password: string;
+  fingerPrintId?: string;
   tenant: string,
   userNumber: number,
   userType: string,
@@ -31,6 +32,7 @@ export interface IUserInput {
   _id? : string
   fullName: string,
   password: string,
+  fingerPrintId?: string,
   phoneNumber: string,
   userType: string,
   email: string,
