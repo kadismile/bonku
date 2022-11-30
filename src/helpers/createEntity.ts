@@ -11,7 +11,7 @@ export const createUserHelper = async (params: IUserInput) => {
     weight: params.weight,
     sex: params.sex,
     password: params.password,
-    phoneNumber: params.phoneNumber, 
+    fingerPrintId: params.fingerPrintId, 
     userType: params.userType,
     email: params.email,
     address: params.address,
