@@ -4,7 +4,7 @@ import User from './UsersModel';
 import ApplicationError from '../../errors/application-error';
 
 const UserBeforeSave = async (doc: IUser ) => {
-  const userByPhone: IUser | null = await User.findOne({ phoneNumber: { $in: doc.phoneNumber} });
+  const userByPhone: IUser | null = await User.findOne({ phoneNumber: doc.phoneNumber });
   const userByEmail: IUser | null = await User.findOne({ email: doc.email })
   if (userByPhone)
     throw new ApplicationError(`User with phone-number ${doc.phoneNumber} already exist`, 406)
