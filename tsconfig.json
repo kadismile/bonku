@@ -5,6 +5,7 @@
     "lib": ["ES2020"],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": false,
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
