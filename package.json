@@ -7,8 +7,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/src/index.js",
+    "start": "tsc && pm2 start ecosystem.config.json --no-daemon",
     "dev": "NODE_ENV=development tsc-watch --onSuccess \"node dist/src/index.js\"",
     "lint": "eslint ./",
     "lint:fix": "eslint . --fix",
