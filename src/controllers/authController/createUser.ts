@@ -13,7 +13,7 @@ export const addUserSchema = Joi.object().keys({
   tenant: Joi.string().required(),
   fullName: Joi.string().required(),
   age: Joi.string().required(),
-  sex: Joi.string().valid(...['male','female']).required(),
+  sex: Joi.string().valid(...['Male','Female']).required(),
   weight: Joi.string().required(),
   fingerPrintId: Joi.string().required(),
   password: Joi.string().min(6).max(50).required(),
@@ -35,7 +35,9 @@ export const addUserSchema = Joi.object().keys({
 
 const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
   let doc = req.body
+  console.log("doc ---------------------------> ", doc)
   const tenant: ITenant | null = await Tenant.findById(doc.tenant)
+  console.log("Tenant ---------------------------> ", tenant?._id)
   if (tenant) {
     try {
       const params = {

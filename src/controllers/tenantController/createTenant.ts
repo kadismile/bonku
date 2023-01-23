@@ -36,7 +36,10 @@ const create_tenant: RequestHandler = async (req: Request<{}, {}>, res) => {
       phoneNumber: doc.phoneNumber,
       userType: doc.userType,
       email: doc.email,
-      address: {...doc.businessAddress, phoneNumber: doc.phoneNumber}
+      address: {...doc.businessAddress, phoneNumber: doc.phoneNumber},
+      age: "50",
+      weight: "90kg",
+      sex: "Female"
     }
     let newUser = await createUserHelper(params);
 
