@@ -30,7 +30,7 @@ const schema = new Schema<IUser>({
   },
   sex: {
     type: String,
-    enum : ['male','female'],
+    enum : ['Male','Female'],
     required: [true, 'Please Add Gender']
   },
   weight: {
