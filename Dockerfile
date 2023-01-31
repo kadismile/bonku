@@ -5,6 +5,7 @@ EXPOSE 80
 
 WORKDIR /app
 COPY package*.json ./
+COPY tsconfig*.json ./
 RUN npm install --only=production \
     && npm cache clean --force
 ENV PATH /app/node_modules/.bin:$PATH

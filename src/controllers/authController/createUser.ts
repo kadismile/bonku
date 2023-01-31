@@ -35,9 +35,7 @@ export const addUserSchema = Joi.object().keys({
 
 const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
   let doc = req.body
-  console.log("doc ---------------------------> ", doc)
   const tenant: ITenant | null = await Tenant.findById(doc.tenant)
-  console.log("Tenant ---------------------------> ", tenant?._id)
   if (tenant) {
     try {
       const params = {
@@ -55,7 +53,7 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
       }
       const user = await createUserHelper(params)
       if (user && user.userType === 'customer') {
-        //attach a subscription 
+        //attach a subscription
         const subscription = await Subscription.findById(doc.subscriptionId)
         if (subscription) {
           const userSubscription : ISubscription = new UserSubscription({
@@ -68,7 +66,7 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
           await userSubscription.save();
         }
         //send Welcome whatsapp message to customer
-        sendWhatsappMessage(tenant, user)
+        await sendWhatsappMessage(tenant, user)
       }
       res.send({
         status: "success",
@@ -86,7 +84,7 @@ const create_user: RequestHandler = async (req: Request<{}, {}>, res) => {
       message: 'Tenant not found'
     });
   }
-  
+
 };
 
 export default requestMiddleware(create_user, { validation: { body: addUserSchema } });
