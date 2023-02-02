@@ -7,7 +7,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
     "dev": "NODE_ENV=development tsc-watch --onSuccess \"node dist/index.js\"",
     "lint": "eslint ./",
     "lint:fix": "eslint . --fix",
