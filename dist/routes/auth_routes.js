@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const express_1 = require("express");
+const authController = tslib_1.__importStar(require("../controllers/authController"));
+const auth_routes = (0, express_1.Router)();
+auth_routes.post('/create', authController.createUsers);
+auth_routes.post('/login', authController.login);
+auth_routes.get('/access', authController.access);
+auth_routes.get('/access/history', authController.userHistory);
+exports.default = auth_routes;
